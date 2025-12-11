@@ -62,6 +62,11 @@ class ArticleController extends Controller
     {
         $datos=$request->validate(self::validaciones($article->id));
         $datos['imagen']=$request->imagen?->store('imagenes/articles') ?? $article->imagen;
+        //Se hemos subido una imagen nueva borraremos la anterior
+        //solo si la antigua NO es "noimage.jpg"
+        if($request->imagen && basename($article->imagen)!='noimage.jpg'){
+            Storage::delete($article->imagen);
+        }
         $article->update($datos);
         
         return redirect()->route('articles.index')->with('mensaje', 'Articulo Editado');
@@ -86,5 +91,13 @@ class ArticleController extends Controller
             'disponible'=>['required', 'in:Si,No'],
             'imagen'=>['nullable', 'image', 'max:2040'],
         ];
+    }
+
+    public function updateRapido(Article $article){
+        $disponible=$article->disponible=='Si' ? 'No' : 'Si';
+        $article->update([
+            'disponible'=>$disponible
+        ]);
+        return redirect()->route('articles.index');
     }
 }

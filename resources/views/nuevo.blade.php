@@ -14,7 +14,7 @@
                 <label for="nombre" class="block text-sm font-medium text-gray-700 mb-1">
                     <i class="fas fa-tag mr-1"></i> Nombre
                 </label>
-                <input type="text" id="nombre" name="nombre"
+                <input type="text" id="nombre" name="nombre" value="{{ @old('nombre') }}"
                     class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
                     placeholder="Nombre del artículo">
                 <x-pintarerror nomError="nombre" />
@@ -27,7 +27,7 @@
                 </label>
                 <textarea id="descripcion" name="descripcion" rows="4"
                     class="w-full border border-gray-300 rounded-md p-2 focus:ring-blue-500 focus:border-blue-500"
-                    placeholder="Descripción del artículo"></textarea>
+                    placeholder="Descripción del artículo">{{@old('descripcion')}}</textarea>
                 <x-pintarerror nomError="descripcion" />
             </div>
 
@@ -39,12 +39,12 @@
 
                 <div class="flex items-center gap-6">
                     <label class="flex items-center gap-2 text-gray-700">
-                        <input type="radio" name="disponible" value="Si" class="text-blue-600 focus:ring-blue-500">
+                        <input type="radio" name="disponible" value="Si" class="text-blue-600 focus:ring-blue-500" @checked(@old('disponible')=='Si') />
                         <span>Si</span>
                     </label>
 
                     <label class="flex items-center gap-2 text-gray-700">
-                        <input type="radio" name="disponible" value="No" class="text-blue-600 focus:ring-blue-500">
+                        <input type="radio" name="disponible" value="No" class="text-blue-600 focus:ring-blue-500"  @checked(@old('disponible')=='No') />
                         <span>No</span>
                     </label>
                 </div>

@@ -43,13 +43,17 @@
 
                     <!-- Disponible -->
                     <td class="px-4 py-3 text-center">
-                        <p @class([
-                            'p-2 rounded-lg text-center font-bold text-white',
-                            'bg-red-500' => $item->disponible == 'No',
-                            'bg-green-500' => $item->disponible == 'Si',
-                        ])>
-                            {{ $item->disponible }}
-                        </p>
+                        <form method="POST" action="{{ route('articles.updaterapido', $item) }}">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" @class([
+                                'p-2 rounded-lg text-center font-bold text-white w-24',
+                                'bg-red-500 hover:bg-red-700' => $item->disponible == 'No',
+                                'bg-green-500 hover:bg-green-700' => $item->disponible == 'Si',
+                            ])>
+                                {{ $item->disponible }}
+                            </button>
+                        </form>
                     </td>
 
                     <!-- Acciones -->
@@ -74,4 +78,5 @@
     </div>
 @endsection
 @section('misalertas')
+    <x-alerta />
 @endsection
